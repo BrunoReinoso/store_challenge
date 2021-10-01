@@ -3,7 +3,8 @@
 {% block content %}
     {% for product in products %}
         <div class="product">
-            <h2><a href="{% url 'loja:productDetail' pk=product.pk %}">{{ product.productType}}</a></h2>
+            <img style="display: block; height:180px ; width: 300px;" src="{{ product.productImage.url }}">
+            <h2><a href="{% url 'loja:productDetail' pk=product.pk %}">{{ product.productType }}</a></h2>
         </div>
     {% endfor %}
 {% endblock %}
