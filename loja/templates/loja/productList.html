@@ -1,10 +1,11 @@
 {% extends 'loja/base.html' %}
+{% load static %}
 
 {% block content %}
     {% for product in products %}
         <div class="product">
-            <img style="display: block; height:180px ; width: 300px;" src="{{ product.productImage.url }}">
-            <h2><a href="{% url 'loja:productDetail' pk=product.pk %}">{{ product.productType }}</a></h2>
+            <img style="display: block; height:180px ; width: 300px;" src="{{product.product_image.url}}">
+            <h2><a href="{% url 'loja:productDetail' pk=product.pk %}">{{ product.product_type }}</a></h2>
         </div>
     {% endfor %}
 {% endblock %}
