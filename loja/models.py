@@ -14,7 +14,7 @@ class Product(models.Model):
         (LARGE, 'G'),
         (EXTRA_LARGE, 'GG')
     )
-    type = models.CharField(_('type'), max_length=50)
+    name = models.CharField(_('name'), max_length=50)
     brand = models.CharField(_('brand'), max_length=50)
     color = models.CharField(_('color'), max_length=50)
     size = models.CharField(_('size'), max_length=3, choices=SIZE_CHOICES)
@@ -27,4 +27,4 @@ class Product(models.Model):
         verbose_name_plural = _('Products')
 
     def __str__(self):
-        return f'{self.type}'
+        return f'{self.name}'
