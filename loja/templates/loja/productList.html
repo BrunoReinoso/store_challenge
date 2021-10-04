@@ -2,10 +2,14 @@
 {% load static %}
 
 {% block content %}
+    <div class="content container">
+        <div class="row">
     {% for product in products %}
-        <div class="product">
-            <img style="display: block; height:180px ; width: 300px;" src="{{product.image.url}}">
-            <h2><a href="{% url 'loja:productDetail' pk=product.pk %}">{{ product.type }}</a></h2>
+        <div class="col-md-4">
+            <div class="product" href="{% url 'loja:productDetail' pk=product.pk %}">
+                <img style="display: block; height:180px ; width: 300px;" src="{{product.image.url}}">
+                <h2>{{ product.name }}</h2>
+            </div>
         </div>
     {% endfor %}
 {% endblock %}

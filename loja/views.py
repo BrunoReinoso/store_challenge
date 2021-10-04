@@ -4,6 +4,7 @@ from loja.models import Product
 
 # Create your views here.
 
+
 def productsList(request):
 
     products = Product.objects.filter()
