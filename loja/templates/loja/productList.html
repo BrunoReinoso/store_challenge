@@ -5,7 +5,7 @@
     <div class="content container">
         <div class="row">
     {% for product in products %}
-        <div class="col-md-4">
+        <div class="col-md-3">
             <a href="{% url 'loja:productDetail' pk=product.pk %}">
                 <div class="product">
                     <img style="display: block; height:180px ; width: 240px;" src="{{product.image.url}}">
