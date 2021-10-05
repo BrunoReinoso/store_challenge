@@ -15,7 +15,3 @@ def productDetail(request, pk):
 
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'loja/productDetail.html', {'product': product})
-
-def carList(request):
-
-    return render(request, 'loja/carList.html', {})

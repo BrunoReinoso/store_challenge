@@ -5,5 +5,4 @@ from loja import views
 urlpatterns = [
     path('', views.productsList, name='productList'),
     path('product/<int:pk>/', views.productDetail, name='productDetail'),
-    path('carList/', views.carList, name='carList'),
 ]
