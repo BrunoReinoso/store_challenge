@@ -4,6 +4,7 @@ from loja.models import Product
 from loja.serializers import ProductSerializer
 
 from rest_framework.views import APIView , Response
+from rest_framework import status
 
 # Create your views here.
 
@@ -23,3 +24,9 @@ class ProductAPIView(APIView):
         products = Product.objects.all()
         serializer = ProductSerializer(products, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = ProductSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

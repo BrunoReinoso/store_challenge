@@ -23,7 +23,7 @@ class Product(models.Model):
     price = models.DecimalField(
         _('price'), max_digits=5, decimal_places=2, default=1.99
     )
-    image = models.ImageField(_('image'), upload_to='loja')
+    # image = models.ImageField(_('image'), upload_to='loja')
 
     class Meta:
         verbose_name = _('Product')
