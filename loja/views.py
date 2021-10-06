@@ -8,12 +8,12 @@ from rest_framework import generics
 # Create your views here.
 
 
-def productList(request):
+def ProductList(request):
 
     products = Product.objects.filter()
     return render(request, 'loja/productList.html', {'products': products})
 
-def productDetail(request, pk):
+def ProductDetail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'loja/productDetail.html', {'product': product})
 
