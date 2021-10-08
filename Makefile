@@ -70,3 +70,8 @@ lint: clean  ## Run pylint linter
 style:  ## Run isort and black auto formatting code style in the project
 	@isort -m 3 --tc .
 	@black -S -t py37 -l 79 teste/. loja/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+
+tests: ## Run tests 
+	@printf '\n -- \n >>> Running tests...<<<\n'
+	@py.test loja --ds=teste.settings -s  -vvv
+	@printf '\n FINISHED! \n --- \n'
