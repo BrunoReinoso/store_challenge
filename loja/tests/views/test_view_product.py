@@ -38,7 +38,7 @@ class TestProductViewSet:
         assert len(response.json()) == Product.objects.count()
         assert response.status_code == status.HTTP_200_OK
 
-    def test_confirm_first_product(self):
+    def test_confirm_first_product_detail(self):
         product = Product.objects.filter().first()
 
         detail_url = reverse_lazy(
