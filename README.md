@@ -1,5 +1,5 @@
 
-# Djangogirls
+# Store Challenge
 
 ## Description 
 This project is a challenge to evaluate new incomers to the Automation Team.
