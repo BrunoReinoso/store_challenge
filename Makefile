@@ -65,14 +65,14 @@ release-major:  ## Update package release as major
 
 lint: clean  ## Run pylint linter
 	@printf '\n --- \n >>> Running linter...<<<\n'
-	@pylint --rcfile=.pylintrc  --django-settings-module=core.settings core/* loja/* --errors-only
+	@pylint --rcfile=.pylintrc  --django-settings-module=core.settings core/* store/* --errors-only
 	@printf '\n FINISHED! \n --- \n'
 
 style:  ## Run isort and black auto formatting code style in the project
 	@isort -m 3 --tc .
-	@black -S -t py37 -l 79 core/. loja/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+	@black -S -t py37 -l 79 core/. store/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 tests: ## Run tests 
 	@printf '\n -- \n >>> Running tests...<<<\n'
-	@py.test loja --ds=core.settings -s  -vvv
+	@py.test store --ds=core.settings -s  -vvv
 	@printf '\n FINISHED! \n --- \n'

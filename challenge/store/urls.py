@@ -1,7 +1,7 @@
 from django.urls import path
 
-from loja import views
-from loja.views import ProductDetailAPI, ProductListAPI
+from store import views
+from store.views import ProductDetailAPI, ProductListAPI
 
 urlpatterns = [
     path("", views.ProductList, name="productList"),

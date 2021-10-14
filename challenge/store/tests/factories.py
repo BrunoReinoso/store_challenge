@@ -1,6 +1,6 @@
 import factory
 
-from loja.models import Product
+from store.models import Product
 
 sizes = ['PP', 'P', 'M', 'G', 'GG']
 

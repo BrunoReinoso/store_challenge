@@ -4,15 +4,15 @@ from django.urls import reverse_lazy
 from rest_framework import status
 from rest_framework.test import APIClient
 
-from loja.models import Product
-from loja.tests.factories import ProductFactory
+from store.models import Product
+from store.tests.factories import ProductFactory
 
 
 @pytest.mark.django_db
 class TestProductViewSet:
     def setup(self):
         self.client = APIClient()
-        self.list_url = reverse_lazy("loja:productListAPI")
+        self.list_url = reverse_lazy("store:productListAPI")
 
         sequence = factory.Sequence(lambda n: n + 1)
         products = [
@@ -42,7 +42,7 @@ class TestProductViewSet:
         product = Product.objects.filter().first()
 
         detail_url = reverse_lazy(
-            'loja:productDetailAPI', kwargs={'pk': product.pk}
+            'store:productDetailAPI', kwargs={'pk': product.pk}
         )
 
         response = self.client.get(detail_url, format='json')

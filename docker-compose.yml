@@ -2,11 +2,11 @@ version: '3'
 services:
   postgresql:
     image: postgres:latest
-    container_name: postgres-loja
+    container_name: postgres-store
     network_mode: host
     restart: unless-stopped
     environment:
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=admin
-      - POSTGRES_DB=loja
+      - POSTGRES_DB=store
       - TZ=Etc/UTC
