@@ -27,7 +27,7 @@ Clone the project
 Go to the project directory
 
 ```bash
-  cd teste
+  cd core
 ```
 
 Activate the virtualenv and install the dependencies:

@@ -1,6 +1,7 @@
 .PHONY: help
 
-MANAGE = python manage.py
+PROJETCT_NAME = challenge
+MANAGE = cd $(PROJETCT_NAME) && python manage.py
 USER_ID = $(shell id -u)
 GROUP_ID = $(shell id -g)
 SHARED_FOLDER=/tmp/shared-docker-$(shell date +%Y%m%d_%H%M%S)
@@ -64,14 +65,14 @@ release-major:  ## Update package release as major
 
 lint: clean  ## Run pylint linter
 	@printf '\n --- \n >>> Running linter...<<<\n'
-	@pylint --rcfile=.pylintrc  --django-settings-module=teste.settings teste/* loja/* --errors-only
+	@pylint --rcfile=.pylintrc  --django-settings-module=core.settings core/* loja/* --errors-only
 	@printf '\n FINISHED! \n --- \n'
 
 style:  ## Run isort and black auto formatting code style in the project
 	@isort -m 3 --tc .
-	@black -S -t py37 -l 79 teste/. loja/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+	@black -S -t py37 -l 79 core/. loja/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 tests: ## Run tests 
 	@printf '\n -- \n >>> Running tests...<<<\n'
-	@py.test loja --ds=teste.settings -s  -vvv
+	@py.test loja --ds=core.settings -s  -vvv
 	@printf '\n FINISHED! \n --- \n'
