@@ -6,7 +6,7 @@
         <div class="row">
             {% for product in products %}
                 <div class="col-md-3" style="float: left">
-                    <a href="{% url 'store:productDetail' pk=product.pk %}">
+                    <a href="{% url 'store:product_detail' pk=product.pk %}">
                         <center>
                             <img style="display: block; height:180px ; width: 240px;" src="{{product.image.url}}">
                             <h2>{{ product.name }}</h2>
