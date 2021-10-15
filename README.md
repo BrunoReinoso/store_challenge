@@ -72,7 +72,7 @@ After this command below, you can already go to 127.0.0.1:8000 on your browser t
 In order to access administrative module, you will need to create a super user. Execute the command below and follow instructions:
 
 ```bash
-  make superuser
+  make createsuperuser
 ```
   
 ## Authors
