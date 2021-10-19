@@ -54,21 +54,30 @@ class TestProductViewSet:
 
         assert response.status_code == status.HTTP_200_OK
 
-    # def test_can_not_retrieve_product_when_not_found(self):
-    #     detail_url = reverse_lazy('content:product-detail', kwargs={'pk': 999})
 
-    #     response = self.client.get(detail_url, format='json')
+    def test_create_product_with_sucess(self):
+        product = Product.objects.create(
+            name= 'new product',
+            brand= 'nike',
+            color= 'yellow',
+            size= 'P',
+            description='blablabla',
+            price='2.50',
+        )
 
-    #     assert response.status_code == status.HTTP_404_NOT_FOUND
+        detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
+        response = self.client.get(detail_url, format='json')
 
-    # @pytest.mark.parametrize('field, expected_error',
+        assert response.status_code == status.HTTP_200_OK
 
-    # )
+    def test_can_not_find_product(self):
+        detail_url = reverse_lazy('store:product', kwargs={'pk': 999})
 
+        response = self.client.get(detail_url, format='json')
 
-# - create product with bad request (informações insuficientes ou payload zoado)
-# - test create product with sucess
-# - test get product with sucess
-# - test get product 404
-# - test put with sucess
-# - test put 404
+        assert response.status_code == status.HTTP_404_NOT_FOUND
+
+    # - test get product with sucess
+    # - test put with sucess
+    # - create product with bad request (informações insuficientes ou payload zoado)
+    # - test put 404

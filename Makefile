@@ -23,7 +23,7 @@ clean:  ## Clean python bytecodes, optimized files, logs, cache, coverage...
 	@echo 'Temporary files deleted'
 
 shell: clean  ## Run a django shell
-	@$(MANAGE) shell_plus
+	@$(MANAGE) shell
 
 requirements-pip:  ## Install the APP requirements
 	@pip install --upgrade pip
