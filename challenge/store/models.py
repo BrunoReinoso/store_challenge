@@ -1,7 +1,8 @@
+import decimal
+
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.translation import gettext_lazy as _
-from django.core.validators import MinValueValidator
-import decimal
 
 
 class Product(models.Model):
@@ -17,13 +18,16 @@ class Product(models.Model):
         (LARGE, 'G'),
         (EXTRA_LARGE, 'GG'),
     )
-    name = models.CharField(_('name'), max_length=50, unique = True)
+    name = models.CharField(_('name'), max_length=50, unique=True)
     brand = models.CharField(_('brand'), max_length=50)
     color = models.CharField(_('color'), max_length=50)
     size = models.CharField(_('size'), max_length=3, choices=SIZE_CHOICES)
     description = models.CharField(_('description'), max_length=100)
     price = models.DecimalField(
-        _('price'), max_digits=10, decimal_places=2, validators=[MinValueValidator(decimal.Decimal('0.01'))]
+        _('price'),
+        max_digits=10,
+        decimal_places=2,
+        validators=[MinValueValidator(decimal.Decimal('0.01'))],
     )
     image = models.ImageField(_('image'), upload_to='store', null=True)
 

@@ -10,6 +10,7 @@ def product_list(request):
     products = Product.objects.filter()
     return render(request, 'store/productList.html', {'products': products})
 
+
 def product_detail(request, pk):
     product = get_object_or_404(Product, pk=pk)
     return render(request, 'store/productDetail.html', {'product': product})
