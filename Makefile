@@ -1,7 +1,7 @@
 .PHONY: help
 
-PROJETCT_NAME = challenge
-MANAGE = cd $(PROJETCT_NAME) && python manage.py
+PROJECT_NAME = challenge
+MANAGE = cd $(PROJECT_NAME) && python manage.py
 USER_ID = $(shell id -u)
 GROUP_ID = $(shell id -g)
 SHARED_FOLDER=/tmp/shared-docker-$(shell date +%Y%m%d_%H%M%S)
@@ -65,14 +65,17 @@ release-major:  ## Update package release as major
 
 lint: clean  ## Run pylint linter
 	@printf '\n --- \n >>> Running linter...<<<\n'
-	@pylint --rcfile=.pylintrc  --django-settings-module=core.settings $(PROJETCT_NAME)/* --errors-only
+	@pylint --rcfile=.pylintrc  --django-settings-module=core.settings $(PROJECT_NAME)/* --errors-only
 	@printf '\n FINISHED! \n --- \n'
 
 style:  ## Run isort and black auto formatting code style in the project
 	@isort -m 3 --tc .
-	@black -S -t py37 -l 79 $(PROJETCT_NAME)/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+	@black -S -t py37 -l 79 $(PROJECT_NAME)/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 tests: ## Run tests 
 	@printf '\n -- \n >>> Running tests...<<<\n'
-	@cd $(PROJETCT_NAME) && py.test store --ds=core.settings -s  -vvv
+	@cd $(PROJECT_NAME) && py.test store --ds=core.settings -s  -vvv
 	@printf '\n FINISHED! \n --- \n'
+
+test-matching: clean  ## Run only tests matching pattern. E.g.: make test-matching test=TestClassName
+	@cd $(PROJECT_NAME) && py.test store -k $(test) --ds=core.settings -s  -vvv

@@ -14,11 +14,12 @@ class TestProductViewSet:
         self.client = APIClient()
         self.list_url = reverse_lazy("store:products")
 
+        ProductFactory.reset_sequence()
         sequence = factory.Sequence(lambda n: n + 1)
         products = [
-            ('camisa', 'nike', 'azul', 'pp', 'description 1', '1.99'),
-            ('short', 'adidas', 'preta', 'g', 'descripion 2', '43.23'),
-            ('blusa', 'ous', 'rosa', 'm', 'description 3', '88.00'),
+            ('camisa', 'nike', 'azul', 'pp', 'description 1', 1.99),
+            ('short', 'adidas', 'preta', 'g', 'descripion 2', 43.23),
+            ('blusa', 'ous', 'rosa', 'm', 'description 3', 88.00),
         ]
 
         for product in products:
@@ -38,8 +39,8 @@ class TestProductViewSet:
         assert len(response.json()) == Product.objects.count()
         assert response.status_code == status.HTTP_200_OK
 
-    def test_confirm_first_product_detail(self):
-        product = Product.objects.filter().first()
+    def test_confirm_product_detail(self):
+        product = Product.objects.get(pk=1)
 
         detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
 
@@ -54,21 +55,12 @@ class TestProductViewSet:
 
         assert response.status_code == status.HTTP_200_OK
 
-
-    def test_create_product_with_sucess(self):
-        product = Product.objects.create(
-            name= 'new product',
-            brand= 'nike',
-            color= 'yellow',
-            size= 'P',
-            description='blablabla',
-            price='2.50',
-        )
-
-        detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
-        response = self.client.get(detail_url, format='json')
-
+    def test_create_product_with_sucess(self, product_payload):
+        #import ipdb; ipdb.set_trace();
+        response = self.client.post(self.list_url, format='json', data=product_payload)
+        
         assert response.status_code == status.HTTP_200_OK
+        
 
     def test_can_not_find_product(self):
         detail_url = reverse_lazy('store:product', kwargs={'pk': 999})
@@ -77,7 +69,7 @@ class TestProductViewSet:
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
-    # - test get product with sucess
-    # - test put with sucess
-    # - create product with bad request (informações insuficientes ou payload zoado)
-    # - test put 404
+# - test create product with sucess
+# - create product with bad request (informações insuficientes ou payload zoado)
+# - test put with sucess
+# - test put 404

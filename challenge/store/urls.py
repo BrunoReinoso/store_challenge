@@ -1,13 +1,13 @@
 from django.urls import path
 
 from store import views
-from store.views import ProductDetail, ProductList
+from store.views import Product
 
 urlpatterns = [
-    path("products/", ProductList.as_view(), name="products"),
+    path("products/", Product.as_view({'post': 'create', 'get': 'list'}), name="products"),
     path(
         "product/<int:pk>/",
-        ProductDetail.as_view(),
+        Product.as_view({'put': 'update', 'get': 'retrieve', 'delete': 'destroy'}),
         name="product",
     ),
     path("", views.product_list, name="product_list"),
