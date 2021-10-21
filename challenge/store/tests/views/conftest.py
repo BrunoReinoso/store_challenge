@@ -10,4 +10,4 @@ def product_payload():
         'size': 'G',
         'description': 'camisa branca da nike grande futebol etc',
         'price': 180.50,
-    } 
+    }

@@ -1,6 +1,7 @@
 .PHONY: help
 
 PROJECT_NAME = challenge
+APP_NAME = store
 MANAGE = cd $(PROJECT_NAME) && python manage.py
 USER_ID = $(shell id -u)
 GROUP_ID = $(shell id -g)
@@ -70,12 +71,12 @@ lint: clean  ## Run pylint linter
 
 style:  ## Run isort and black auto formatting code style in the project
 	@isort -m 3 --tc .
-	@black -S -t py37 -l 79 $(PROJECT_NAME)/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
+	@black -S -t py38 -l 79 $(PROJECT_NAME)/. --exclude '/(\.git|\.venv|env|venv|build|dist)/'
 
 tests: ## Run tests 
 	@printf '\n -- \n >>> Running tests...<<<\n'
-	@cd $(PROJECT_NAME) && py.test store --ds=core.settings -s  -vvv
+	@cd $(PROJECT_NAME) && py.test $(APP_NAME) --ds=core.settings -s  -vvv
 	@printf '\n FINISHED! \n --- \n'
 
 test-matching: clean  ## Run only tests matching pattern. E.g.: make test-matching test=TestClassName
-	@cd $(PROJECT_NAME) && py.test store -k $(test) --ds=core.settings -s  -vvv
+	@cd $(PROJECT_NAME) && py.test $(APP_NAME) -k $(test) --ds=core.settings -s  -vvv
