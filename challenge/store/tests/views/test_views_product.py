@@ -61,7 +61,9 @@ class TestProductViewSet:
     def test_update_product_with_sucess(self, product_payload):
         product = Product.objects.first()
         detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
-        response = self.client.put(detail_url, format='json', data=product_payload)
+        response = self.client.put(
+            detail_url, format='json', data=product_payload
+        )
 
         assert response.status_code == status.HTTP_200_OK
 
@@ -96,4 +98,3 @@ class TestProductViewSet:
         )
 
         assert response_second.status_code == status.HTTP_400_BAD_REQUEST
-
