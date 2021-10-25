@@ -58,15 +58,42 @@ class TestProductViewSet:
 
         assert response.status_code == status.HTTP_201_CREATED
 
-    def test_can_not_find_product(self):
+    def test_update_product_with_sucess(self, product_payload):
+        product = Product.objects.first()
+        detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
+        response = self.client.put(detail_url, format='json', data=product_payload)
+
+        assert response.status_code == status.HTTP_200_OK
+
+    def test_error_create_product_unique_name(self, product_payload):
+        response_first = self.client.post(
+            self.list_url, format='json', data=product_payload
+        )
+
+        response_second = self.client.post(
+            self.list_url, format='json', data=product_payload
+        )
+
+        assert response_second.status_code == status.HTTP_400_BAD_REQUEST
+
+    def test_error_can_not_find_product(self):
         detail_url = reverse_lazy('store:product', kwargs={'pk': 999})
 
         response = self.client.get(detail_url, format='json')
 
         assert response.status_code == status.HTTP_404_NOT_FOUND
 
+    def test_error_update_product(self, product_payload):
+        new_product = self.client.post(
+            self.list_url, format='json', data=product_payload
+        )
 
-# - test create product with sucess
-# - create product with bad request (informações insuficientes ou payload zoado)
-# - test put with sucess
-# - test put 404
+        product = Product.objects.first()
+        detail_url = reverse_lazy('store:product', kwargs={'pk': product.pk})
+
+        response_second = self.client.put(
+            detail_url, format='json', data=product_payload
+        )
+
+        assert response_second.status_code == status.HTTP_400_BAD_REQUEST
+

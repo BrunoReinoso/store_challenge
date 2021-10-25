@@ -11,7 +11,7 @@ This project is a challenge to evaluate new incomers to the Automation Team.
 ## Development
 This project was developed on Linux Ubuntu 21.04. See the Dockerfile apt-get install command to get the list of packages you will need to have installed for the requirements to be installed successfully.
 
-Then, we recommend installing pyenv and pyenv-virtualenv, install python 3.8.0 on it and then create a pyenv virtualenv with this python version.
+Then, we recommend installing pyenv and pyenv-virtualenv, install python 3.10.0 on it and then create a pyenv virtualenv with this python version.
 
 Alternatively, in case you need, there are also commands in the Makefile to build and run the containers for the app.
 
