@@ -13,31 +13,21 @@ RUN echo "Container UID: $UID"
 RUN echo "Container GID: $GID"
 RUN echo "EXPOSE: $EXPOSE_PORT"
 
-RUN apt update -y \
- && apt install -y --no-install-recommends curl vim tree \
- && apt -y autoremove \
- && rm -fr /var/lib/apt/lists/* \
- && rm -fr /var/cache/apt/archives/*
+RUN mkdir -p /api/
 
-RUN mkdir /tmp/requirements
-COPY requirements/* /tmp/requirements/
+WORKDIR /api
+COPY . /api
 
-RUN tree /tmp/requirements \
-  && pip install --upgrade pip \
-  && pip install -r /tmp/requirements/base.txt \
+RUN apt update -y
+
+RUN pip install --upgrade pip \
+  && pip install -r requirements/base.txt \
   && rm -fr /root/.cache
-
-RUN groupadd -r -g "$GID" appuser; useradd -l --create-home -u "$UID" -g "$GID" appuser
-WORKDIR /home/appuser
-COPY . /home/appuser
-
-RUN /bin/bash -l -c 'chown -R "$UID:$GID" /home/appuser'
-
-USER appuser
-RUN echo "User details: $(id)" && ls -la /home/appuser
-
-EXPOSE ${EXPOSE_PORT}
 
 ENTRYPOINT ["/bin/bash", "-c"]
 
-CMD make run-server
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
+EXPOSE 8000/tcp
+
+HEALTHCHECK --interval=6s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:8000/ || exit 1
