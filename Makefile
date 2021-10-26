@@ -89,4 +89,4 @@ docker-run-local: clean  ## Run the docker application image locally
 	@echo "You can exchange files with these containers on the directory $(SHARED_FOLDER) on the host and /shared on the container."
 	@mkdir -p $(SHARED_FOLDER)
 	@echo 'Starting app container...'
-	@docker run --rm -d --env-file .env --network host --mount type=bind,source=$(SHARED_FOLDER),target=/shared --name '$(PROJECT_NAME)' $(PROJECT_NAME):$(VERSION) 'make run-server' &
+	@docker run -d -p 8080:8080 --env-file .env --network host --mount type=bind,source=$(SHARED_FOLDER),target=/shared --name '$(PROJECT_NAME)' $(PROJECT_NAME):$(VERSION) 'make run-server' &
