@@ -1,33 +1,29 @@
-FROM python:3.8
+FROM python:3.10
 
-# The enviroment variable ensures that the python output is set straight
-# to the terminal without buffering it first
 ENV PYTHONUNBUFFERED 1
 
 ARG UID
 ARG GID
-ARG APP_PORT
-ENV EXPOSE_PORT=${APP_PORT}
 
 RUN echo "Container UID: $UID"
 RUN echo "Container GID: $GID"
-RUN echo "EXPOSE: $EXPOSE_PORT"
 
-RUN mkdir -p /api/
+RUN groupadd -r -g "$GID" appuser; useradd -l --create-home -u "$UID" -g "$GID" appuser
 
-WORKDIR /api
-COPY . /api
+WORKDIR /home/appuser
+COPY . /home/appuser
 
-RUN apt update -y
+RUN /bin/bash -l -c 'chown -R "$UID:$GID" /home/appuser'
+
+RUN apt update \
+  && apt install -y --no-install-recommends  \
+  vim curl apt-file
 
 RUN pip install --upgrade pip \
   && pip install -r requirements/base.txt \
   && rm -fr /root/.cache
 
-ENTRYPOINT ["/bin/bash", "-c"]
+EXPOSE 8000
 
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+ENTRYPOINT make run-server
 
-EXPOSE 8000/tcp
-
-HEALTHCHECK --interval=6s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost:8000/ || exit 1

@@ -10,15 +10,3 @@ services:
       - POSTGRES_DB=store
       - TZ=Etc/UTC
 
-  api:
-    depends_on:
-      - postgresql
-    ports:
-      - 8000:8000
-    env_file: ./.env
-    environment:
-      - PYTHONUNBUFFERED=1
-      - APP_SERVICE=api
-    build:
-      context: ./
-      dockerfile: ./Dockerfile
