@@ -80,3 +80,11 @@ tests: ## Run tests
 
 test-matching: clean  ## Run only tests matching pattern. E.g.: make test-matching test=TestClassName
 	@cd $(PROJECT_NAME) && py.test $(APP_NAME) -k $(test) --ds=core.settings -s  -vvv
+
+docker-build-image: ## Build application image
+	@echo 'Building application image'
+	@docker build -t "$(PROJECT_NAME)" --pull --no-cache --build-arg UID="$(USER_ID)" --build-arg GID="$(GROUP_ID)" -f Dockerfile .
+
+docker-run-local: clean  ## Run the docker application image locally
+	@echo 'Starting app container...'
+	@docker run --rm -d -p 8000:8000 --env-file .env --network host --name '$(PROJECT_NAME)' $(PROJECT_NAME):latest
