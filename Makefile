@@ -87,4 +87,4 @@ docker-build-image: ## Build application image
 
 docker-run-local: clean  ## Run the docker application image locally
 	@echo 'Starting app container...'
-	@docker run --rm -d -p 8000:8000 --env-file .env --network host --name '$(PROJECT_NAME)' $(PROJECT_NAME):latest 'make run-server'
+	@docker run --rm -d -p 8000:8000 --env-file .env --network host --name '$(PROJECT_NAME)' $(PROJECT_NAME):latest
