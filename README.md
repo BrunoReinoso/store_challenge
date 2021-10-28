@@ -18,19 +18,19 @@ Alternatively, in case you need, there are also commands in the Makefile to buil
 
 ## Installation
 
-Clone the project
+#### Clone the project
 
 ```bash
   git clone https://github.com/BrunoReinoso/store-challenge
 ```
 
-Go to the project directory
+#### Go to the project directory
 
 ```bash
-  cd core
+  cd challenge
 ```
 
-Activate the virtualenv and install the dependencies:
+#### Activate the virtualenv and install the dependencies (if you want to use Docker, skip this step)
 
 ```bash
   make requirements-pip
@@ -59,7 +59,17 @@ With instructions created, it's time to apply them (execute within database):
   make migrate
 ```
 
-### Start the server
+#### Build Docker Image and run it (optional)
+
+```bash
+  make docker-build-image
+```
+
+```bash
+  make docker-run-locally
+```
+
+### Start the server (skip this STEP if you're using Docker)
 
 After this command below, you can already go to 127.0.0.1:8000 on your browser to see the application.
 
